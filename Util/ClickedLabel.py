@@ -35,7 +35,7 @@ def show_dialog():
     vbox_layout = QVBoxLayout()
     dialog.setLayout(vbox_layout)
 
-    tip = QLabel('先按所需组合键, 再按enter键。')
+    tip = QLabel('先按所需組合鍵, 再按ENTER鍵。')
     tip.setAlignment(Qt.AlignCenter)
     tip.setStyleSheet('font-size: 15px')
     tip.setMargin(10)

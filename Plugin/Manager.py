@@ -29,7 +29,7 @@ class PluginManager:
                 manifest = json5.load(f)
         return manifest
 
-    # 在目录plugins下搜寻启用的有效插件，同时生成实例
+    # 在目錄plugins下搜尋啟用的有效外掛，同時產生實例
     @staticmethod
     @logger.catch
     def discover_plugin():
@@ -54,7 +54,7 @@ class PluginManager:
 
         logger.info(f'Discovered Plugin {[plugin_ins.meta.name for plugin_ins in PluginManager.plugins]}')
 
-    # 调用实例的注册方法
+    # 呼叫實例的註冊方法
     @staticmethod
     @logger.catch
     def register_plugin():
@@ -91,7 +91,7 @@ class PluginManager:
 
     @staticmethod
     def reload():
-        # 暂时采用全部重新加载的方案
+        # 暫時採用全部重新載入的方案
         PluginManager.functions = {}
         PluginManager.record_functions = []
         PluginManager.plugins = []

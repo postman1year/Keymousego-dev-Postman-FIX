@@ -38,7 +38,6 @@ class RunScriptClass(QThread, RunScriptMeta):
     tnumrdSignal: Signal = Signal(str)
     btnSignal: Signal = Signal(bool)
     statusSignal: Signal = Signal(bool)
-    playtuneSignal: Signal = Signal(str)
 
     def __init__(self, frame: QWidget):
         super().__init__()
@@ -49,14 +48,13 @@ class RunScriptClass(QThread, RunScriptMeta):
         self.runtimes = frame.stimes.value()
         self.interval = frame.interval.value()
 
-        # 更新控件的槽函数
+        # 更新控制元件的槽函式
         self.logSignal.connect(frame.textlog.append)
         self.tnumrdSignal.connect(frame.tnumrd.setText)
         self.btnSignal.connect(frame.btrun.setEnabled)
         self.btnSignal.connect(frame.btrecord.setEnabled)
         frame.updateStateSignal.connect(self.update_state, Qt.DirectConnection)
         self.statusSignal.connect(frame.handle_runscript_status)
-        self.playtuneSignal.connect(frame.playtune)
 
     def sleep(self, msecs: int):
         RunScriptMeta.sleep(self, msecs)
@@ -87,14 +85,13 @@ class RunScriptClass(QThread, RunScriptMeta):
             return
 
         self.btnSignal.emit(False)
-        self.playtuneSignal.emit('start.wav')
+
         try:
             self.run_script_from_path(self.script_path)
         except Exception as e:
             logger.error(e)
             self.logSignal.emit('An error occurred during execution! Please check logs!')
         self.statusSignal.emit(True)
-        self.playtuneSignal.emit('end.wav')
 
     @logger.catch
     def run_script_from_path(self, script_path: str):
@@ -103,7 +100,7 @@ class RunScriptClass(QThread, RunScriptMeta):
             self.tnumrdSignal.emit(running_text)
             logger.info('%s running..' % script_path.split('/')[-1].split('\\')[-1])
 
-            # 解析脚本，返回事件集合与扩展类对象
+            # 解析指令碼，返回事件集合與擴充套件類對像
             logger.debug('Parse script..')
             try:
                 head_object = ScriptParser.parse(script_path)
@@ -146,7 +143,7 @@ class RunScriptClass(QThread, RunScriptMeta):
         finally:
             self.btnSignal.emit(True)
 
-    # 执行集合中的ScriptEvent
+    # 執行集合中的ScriptEvent
     @logger.catch
     def run_script_from_objects(self, head_object: JsonObject, attach: List[str] = None):
         current_object = head_object
@@ -160,7 +157,7 @@ class RunScriptClass(QThread, RunScriptMeta):
                 except Exception as e:
                     logger.error(e)
                     self.logSignal.emit(f'An error occurred while calling {attach}, please check log file')
-                    self.logSignal.emit(f'调用{attach}时发生错误，请检查程序日志')
+                    self.logSignal.emit(f'呼叫{attach}時發生錯誤，請檢查程式日誌')
             current_object = self.run_object(current_object)
         return True
 

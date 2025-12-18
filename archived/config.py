@@ -15,7 +15,7 @@ import winreg
 '''
 
 conf = configparser.ConfigParser()
-# 是否切换主要/次要功能键
+# 是否切換主要/次要功能鍵
 swapmousebuttons = True if winreg.QueryValueEx(winreg.OpenKey(winreg.HKEY_CURRENT_USER,
                                                               r'Control Panel\Mouse',
                                                               0,
@@ -27,15 +27,15 @@ swapmousemap = {'mouse left down': 'mouse right down', 'mouse left up': 'mouse r
 
 def setdefaultconf(config):
     config.add_section('Config')
-    config.set('Config', 'StartHotKeyIndex', '3')
+    config.set('Config', 'StartHotKeyIndex', '9')
     config.set('Config', 'StopHotKeyIndex', '6')
     config.set('Config', 'RecordHotKeyIndex', '7')
     config.set('Config', 'LoopTimes', '1')
     config.set('Config', 'Precision', '200')
     config.set('Config', 'ExecuteSpeed', '100')
-    config.set('Config', 'Language', 'zh-cn')
-    config.set('Config', 'StartTime', '不定时')
-    config.set('Config', 'StopTime', '不定时')
+    config.set('Config', 'Language', '繁體中文')
+    config.set('Config', 'StartTime', self.label_no_sch.text())
+    config.set('Config', 'StopTime', self.label_no_sch.text())
 
 def getconfig():
     if not os.path.exists('../config.ini'):
@@ -54,6 +54,6 @@ def saveconfig(newConf):
     conf.set('Config', 'Precision', str(newConf['precision']))
     conf.set('Config', 'ExecuteSpeed', str(newConf['executespeed']))
     conf.set('Config', 'Language', str(newConf['language']))
-    conf.set('Config', 'StartTime', newConf.get('start_time', '不定时'))
-    conf.set('Config', 'StopTime', newConf.get('stop_time', '不定时'))
+    conf.set('Config', 'StartTime', newConf.get('start_time', self.label_no_sch.text()))
+    conf.set('Config', 'StopTime', newConf.get('stop_time', self.label_no_sch.text()))
     conf.write(open('../config.ini', 'w'))

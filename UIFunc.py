@@ -7,14 +7,12 @@ import os
 import sys
 import threading
 import platform
-import locale
 import Recorder
 
 from PySide6.QtGui import QTextCursor
 from qt_material import list_themes, QtStyleTools
 from PySide6.QtCore import *
 from PySide6.QtWidgets import QMainWindow, QApplication, QMessageBox
-from PySide6.QtMultimedia import QSoundEffect
 from loguru import logger
 
 from Event import ScriptEvent, flag_multiplemonitor
@@ -53,7 +51,7 @@ def get_assets_path(*paths):
 
 
 scripts = []
-scripts_map = {'current_index': 0, 'choice_language': '简体中文'}
+scripts_map = {'current_index': 0, 'choice_language': '繁體中文'}
 
 
 def get_script_list_from_dir():
@@ -92,12 +90,9 @@ class UIFunc(QMainWindow, Ui_UIView, QtStyleTools):
         self.setFocusPolicy(Qt.NoFocus)
 
         self.trans = QTranslator(self)
-        self.choice_language.addItems(['简体中文', 'English', '繁體中文'])
+        self.choice_language.addItems(['繁體中文', 'English', '简体中文'])
         self.choice_language.currentTextChanged.connect(self.onchangelang)
-
-        # 获取默认的地区设置
-        language = '简体中文' if locale.getdefaultlocale()[0] == 'zh_CN' else 'English'
-        self.choice_language.setCurrentText(language)
+        self.choice_language.setCurrentText(self.config.value("Config/Language"))
         self.onchangelang()
 
         get_script_list_from_dir()
@@ -128,8 +123,8 @@ class UIFunc(QMainWindow, Ui_UIView, QtStyleTools):
         self.hotkey_stop.setText(self.config.value("Config/StopHotKey"))
         self.hotkey_start.setText(self.config.value("Config/StartHotKey"))
         self.hotkey_record.setText(self.config.value("Config/RecordHotKey"))
-        start_time_config = self.config.value("Config/StartTime", "不定时")
-        if start_time_config == "不定时":
+        start_time_config = self.config.value("Config/StartTime", self.label_no_sch.text())
+        if start_time_config == self.label_no_sch.text():
             self.checkbox_no_timing_start.setChecked(True)
         else:
             hour, minute, _ = start_time_config.split(":")
@@ -137,8 +132,8 @@ class UIFunc(QMainWindow, Ui_UIView, QtStyleTools):
             self.combo_start_min.setCurrentText(minute)
             self.combo_start_hour.currentTextChanged.connect(self.onconfigchange)
             self.combo_start_min.currentTextChanged.connect(self.onconfigchange)
-        stop_time_config = self.config.value("Config/StopTime", "不定时")
-        if stop_time_config == "不定时":
+        stop_time_config = self.config.value("Config/StopTime", self.label_no_sch.text())
+        if stop_time_config == self.label_no_sch.text():
             self.checkbox_no_timing_stop.setChecked(True)
         else:
             hour, minute, _ = stop_time_config.split(":")
@@ -148,9 +143,9 @@ class UIFunc(QMainWindow, Ui_UIView, QtStyleTools):
             self.combo_stop_min.currentTextChanged.connect(self.onconfigchange)
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.check_time)
-        self.timer.start(1000)  # 每秒检查一次时间
-        self.last_start_triggered = None  # 记录最后一次启动触发时间（格式："HH:MM"）
-        self.last_stop_triggered = None   # 记录最后一次停止触发时间
+        self.timer.start(1000)  # 每秒檢查一次時間
+        self.last_start_triggered = None  # 記錄最後一次啟動觸發時間（格式："HH:MM"）
+        self.last_stop_triggered = None   # 記錄最後一次停止觸發時間
 
         self.checkbox_no_timing_start.stateChanged.connect(
             lambda: self._toggle_time_controls(
@@ -167,7 +162,7 @@ class UIFunc(QMainWindow, Ui_UIView, QtStyleTools):
             )
         )
 
-        # 初始化时根据配置设置控件状态
+        # 初始化時根據配置設定控制元件狀態
         self._toggle_time_controls(
             self.checkbox_no_timing_start,
             self.combo_start_hour,
@@ -183,17 +178,6 @@ class UIFunc(QMainWindow, Ui_UIView, QtStyleTools):
 
         self.textlog.textChanged.connect(lambda: self.textlog.moveCursor(QTextCursor.End))
 
-        # For tune playing
-        self.player = QSoundEffect()
-        self.volumeSlider.setValue(50)
-        self.volumeSlider.valueChanged.connect(
-            lambda: self.player.setVolume(
-                self.volumeSlider.value()/100.0))
-
-        self.record = []
-
-        self.actioncount = 0
-
         # For better thread control
         self.runthread = None
 
@@ -208,14 +192,14 @@ class UIFunc(QMainWindow, Ui_UIView, QtStyleTools):
         self.btpauserecord.installEventFilter(self)
         self.bt_open_script_files.installEventFilter(self)
 
-        # 组合键缓冲池，[ctrl,shift,alt,cmd/start/win]可用作组合键，但不能单独用作启动热键
+        # 組合鍵緩衝池，[ctrl,shift,alt,cmd/start/win]可用作組合鍵，但不能單獨用作啟動熱鍵
         self.keys_pool: List[str] = []
         self.hotkey_set_btn = None
         self.hotkey_stop.clicked.connect(lambda: self.OnHotkeyButton(self.hotkey_stop))
         self.hotkey_start.clicked.connect(lambda: self.OnHotkeyButton(self.hotkey_start))
         self.hotkey_record.clicked.connect(lambda: self.OnHotkeyButton(self.hotkey_record))
 
-        # 热键引发状态转移
+        # 熱鍵引發狀態轉移
         def check_hotkeys(key_name):
             if key_name in Recorder.globals.key_combination_trigger:
                 if self.state == State.SETTING_HOT_KEYS:
@@ -278,9 +262,9 @@ class UIFunc(QMainWindow, Ui_UIView, QtStyleTools):
 
         @Slot(ScriptEvent)
         def on_record_event(event: ScriptEvent):
-            # 判断mouse热键
+            # 判斷mouse熱鍵
             if event.event_type == "EM":
-                name = event.action_type
+                name = event.message
                 if 'mouse x1 down' == name and check_hotkeys('xbutton1'):
                     return
                 elif 'mouse x2 down' == name and check_hotkeys('xbutton2'):
@@ -288,23 +272,23 @@ class UIFunc(QMainWindow, Ui_UIView, QtStyleTools):
                 elif 'mouse middle down' == name and check_hotkeys('middle'):
                     return
             else:
-                key_name = event.action[1].lower()
-                if event.action_type == 'key down':
+                key_name = event.action[1].upper()
+                if event.message == 'key down':
                     if key_name in Recorder.globals.key_combination_trigger and len(self.keys_pool) < 3 and key_name not in self.keys_pool:
                         self.keys_pool.append(key_name)
                     # listen for start/stop script
-                    # start_name = 'f6'  # as default
-                    # stop_name = 'f9'  # as default
+                    # start_name = 'F12'  # as default
+                    # stop_name = 'F9'  # as default
                     check_hotkeys(key_name)
-                elif event.action_type == 'key up':
+                elif event.message == 'key up':
                     if key_name in Recorder.globals.key_combination_trigger and key_name in self.keys_pool:
                         self.keys_pool.remove(key_name)
                         check_hotkeys(key_name)
-                # 不录制热键
+                # 不錄製熱鍵
                 for btn in [self.hotkey_start, self.hotkey_record, self.hotkey_stop]:
                     if key_name == btn.text():
                         return
-            # 录制事件
+            # 錄製事件
             if self.state == State.RECORDING:
                 if event.event_type == 'EM' and not flag_multiplemonitor:
                     tx, ty = event.action
@@ -335,18 +319,19 @@ class UIFunc(QMainWindow, Ui_UIView, QtStyleTools):
         self.config.setValue("Config/LoopTimes", self.stimes.value())
         self.config.setValue("Config/Interval", self.interval.value())
         self.config.setValue("Config/Precision", self.mouse_move_interval_ms.value())
+        self.config.setValue("Config/language", self.choice_language.currentText())
         self.config.setValue("Config/Theme", self.choice_theme.currentText())
         self.config.setValue("Config/Script", self.choice_script.currentText())
         self.config.setValue("Config/StartHotKey", self.hotkey_start.text())
         self.config.setValue("Config/StopHotKey", self.hotkey_stop.text())
         self.config.setValue("Config/RecordHotKey", self.hotkey_record.text())
         if self.checkbox_no_timing_start.isChecked():
-            start_time = "不定时"
+            start_time = self.label_no_sch.text()
         else:
             start_time = f"{self.combo_start_hour.currentText()}:{self.combo_start_min.currentText()}:00"
         self.config.setValue("Config/StartTime", start_time)
         if self.checkbox_no_timing_stop.isChecked():
-            stop_time = "不定时"
+            stop_time = self.label_no_sch.text()
         else:
             stop_time = f"{self.combo_stop_hour.currentText()}:{self.combo_stop_min.currentText()}:00"
         self.config.setValue("Config/StopTime", stop_time)
@@ -354,22 +339,26 @@ class UIFunc(QMainWindow, Ui_UIView, QtStyleTools):
     def onchangelang(self):
         global scripts_map
 
-        if self.choice_language.currentText() == '简体中文':
-            self.trans.load(get_assets_path('i18n', 'zh-cn'))
+        if self.choice_language.currentText() == '繁體中文':
+            self.trans.load(get_assets_path('i18n', 'zh-tw'))
             _app = QApplication.instance()
             _app.installTranslator(self.trans)
             self.retranslateUi(self)
+            scripts_map['choice_language'] = '繁體中文'
         elif self.choice_language.currentText() == 'English':
             self.trans.load(get_assets_path('i18n', 'en'))
             _app = QApplication.instance()
             _app.installTranslator(self.trans)
             self.retranslateUi(self)
-        elif self.choice_language.currentText() == '繁體中文':
-            self.trans.load(get_assets_path('i18n', 'zh-tw'))
+            scripts_map['choice_language'] = 'English'
+        elif self.choice_language.currentText() == '简体中文':
+            self.trans.load(get_assets_path('i18n', 'zh-cn'))
             _app = QApplication.instance()
             _app.installTranslator(self.trans)
             self.retranslateUi(self)
+            scripts_map['choice_language'] = '简体中文'
         self.retranslateUi(self)
+        self.config.setValue("Config/Language", self.choice_language.currentText())
         self.hotkey_stop.setText(self.config.value("Config/StopHotKey"))
         self.hotkey_start.setText(self.config.value("Config/StartHotKey"))
         self.hotkey_record.setText(self.config.value("Config/RecordHotKey"))
@@ -383,9 +372,6 @@ class UIFunc(QMainWindow, Ui_UIView, QtStyleTools):
         self.config.setValue("Config/Theme", self.choice_theme.currentText())
 
     @Slot(str)
-    def playtune(self, filename: str):
-        self.player.setSource(QUrl.fromLocalFile(get_assets_path('sounds', filename)))
-        self.player.play()
 
     def closeEvent(self, event):
         self.config.sync()
@@ -402,13 +388,13 @@ class UIFunc(QMainWindow, Ui_UIView, QtStyleTools):
         if not os.path.exists(to_abs_path('config.ini')):
             with open(to_abs_path('config.ini'), 'w', encoding='utf-8') as f:
                 f.write('[Config]\n'
-                        'StartHotKey=f6\n'
-                        'StopHotKey=f9\n'
-                        'RecordHotKey=f10\n'
+                        'StartHotKey=F12\n'
+                        'StopHotKey=F9\n'
+                        'RecordHotKey=F10\n'
                         'LoopTimes=1\n'
                         'Interval=0\n'
                         'Precision=200\n'
-                        'Language=zh-cn\n'
+                        'Language=繁體中文\n'
                         'Theme=Default\n')
         return QSettings(to_abs_path('config.ini'), QSettings.IniFormat)
 
@@ -467,7 +453,7 @@ class UIFunc(QMainWindow, Ui_UIView, QtStyleTools):
         self.hotkey_start.setEnabled(True)
         self.hotkey_stop.setEnabled(True)
         self.hotkey_record.setEnabled(True)
-        # 重新设置的为点击按钮时, 所处的位置
+        # 重新設定的為點選按鈕時, 所處的位置
         self.choice_script.clear()
         self.choice_script.addItems(scripts)
         self.choice_script.setCurrentIndex(scripts_map['current_index'])
@@ -545,25 +531,25 @@ class UIFunc(QMainWindow, Ui_UIView, QtStyleTools):
 
     @Slot(tuple)
     def cursor_pos_change(self, pos):
-        self.label_cursor_pos.setText(f'Cursor pos: {pos}')
+        self.label_cursor_pos.setText(f'{QCoreApplication.translate("UIView", u"Cursor Position:", None)} {pos}')
     
     def check_time(self):
-        current_time = datetime.datetime.now().strftime("%H:%M")  # 仅比较小时和分钟
+        current_time = datetime.datetime.now().strftime("%H:%M")  # 僅比較小時和分鐘
         if self.checkbox_no_timing_start.isChecked():
-            start_time = "不定时"
+            start_time = self.label_no_sch.text()
         else:
             start_time = f"{self.combo_start_hour.currentText()}:{self.combo_start_min.currentText()}"
 
         if self.checkbox_no_timing_stop.isChecked():
-            stop_time = "不定时"
+            stop_time = self.label_no_sch.text()
         else:
             stop_time = f"{self.combo_stop_hour.currentText()}:{self.combo_stop_min.currentText()}"
 
-        if start_time != "不定时" and current_time == start_time and self.state == State.IDLE and self.last_start_triggered != current_time:
+        if start_time != self.label_no_sch.text() and current_time == start_time and self.state == State.IDLE and self.last_start_triggered != current_time:
             self.OnBtrunButton()
             self.last_start_triggered = current_time
 
-        if stop_time != "不定时" and current_time == stop_time and (self.state == State.RUNNING or self.state == State.PAUSE_RUNNING) and self.last_stop_triggered != current_time:
+        if stop_time != self.label_no_sch.text() and current_time == stop_time and (self.state == State.RUNNING or self.state == State.PAUSE_RUNNING) and self.last_stop_triggered != current_time:
             self.tnumrd.setText('broken')
             if self.runthread:
                 self.runthread.resume()

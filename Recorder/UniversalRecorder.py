@@ -17,13 +17,13 @@ renamedic = {'cmd': 'win', 'shift_r': 'shiftright', 'alt_r': 'altright', 'ctrl_r
              'page_up': 'pageup', 'page_down': 'pagedown', 'print_screen': 'printscreen'}
 
 
-def get_delay(action_type):
+def get_delay(message):
     delay = globalv.current_ts() - globalv.latest_time
 
-    # 录制鼠标轨迹的精度，数值越小越精准，但同时可能产生大量的冗余
+    # 錄製滑鼠軌跡的精度，數值越小越精準，但同時可能產生大量的冗餘
     mouse_move_interval_ms = globalv.mouse_interval_ms or 999999
 
-    if action_type == 'mouse move' and delay < mouse_move_interval_ms:
+    if message == 'mouse move' and delay < mouse_move_interval_ms:
         return -1
 
     if globalv.latest_time < 0:
@@ -32,18 +32,18 @@ def get_delay(action_type):
     return delay
 
 
-def get_mouse_event(x, y, action_type):
+def get_mouse_event(x, y, message):
     tx = x / SW
     ty = y / SH
     tpos = (tx, ty)
-    delay = get_delay(action_type)
+    delay = get_delay(message)
     if delay < 0:
         return None
     else:
         return globalv.ScriptEvent({
             'delay': delay,
             'event_type': 'EM',
-            'action_type': action_type,
+            'message': message,
             'action': tpos
         })
 
@@ -56,23 +56,23 @@ def on_move(x, y):
 
 
 def on_click(x, y, button, pressed):
-    action_type = 'mouse {0} {1}'.format(buttondic[button],
+    message = 'mouse {0} {1}'.format(buttondic[button],
                                      'down' if pressed else 'up')
-    event = get_mouse_event(x, y, action_type)
+    event = get_mouse_event(x, y, message)
     if event:
         record_signals.event_signal.emit(event)
 
 
 def on_scroll(x, y, dx, dy):
-    action_type = 'mouse wheel {0}'.format('down' if dy < 0 else 'up')
-    event = get_mouse_event(x, y, action_type)
+    message = 'mouse wheel {0}'.format('down' if dy < 0 else 'up')
+    event = get_mouse_event(x, y, message)
     if event:
         record_signals.event_signal.emit(event)
 
 
-def get_keyboard_event(key, action_type):
+def get_keyboard_event(key, message):
     #TODO: maybe can helo https://blog.csdn.net/haiyangdaozhang/article/details/109158793
-    delay = get_delay(action_type)
+    delay = get_delay(message)
     if delay < 0:
         return None
     else:
@@ -89,7 +89,7 @@ def get_keyboard_event(key, action_type):
         event = globalv.ScriptEvent({
             'delay': delay,
             'event_type': 'EK',
-            'action_type': action_type,
+            'message': message,
             'action': (keycode, keyname, 0)
         })
         return event

@@ -35,7 +35,7 @@ class FileDialog(Ui_Dialog):
     
 
     def choice_file(self):
-        file = QFileDialog.getOpenFileName(self.main_window, "选择文件", dir=to_abs_path('scripts'), filter='*.txt *.json5')[0]
+        file = QFileDialog.getOpenFileName(self.main_window, QCoreApplication.translate('Dialog', 'choice', None), dir=to_abs_path('scripts'), filter='*.txt *.json5')[0]
         file_name = re.split(r'\\|\/', file)[-1]
         if file_name != '':
             scripts_map['current_index'] = scripts_map[file_name]
@@ -74,7 +74,7 @@ class FileDialog(Ui_Dialog):
             try:
                 os.rename(os.path.join(self.path, self.lineEdit.text()), os.path.join(self.path, new_file_name))
                 QMessageBox().information(self.main_window, 'info', QCoreApplication.translate('Dialog', 'Success', None))
-                # 更新
+                # 升級
                 filename = self.lineEdit.text()
                 index = scripts_map.get(filename)
                 scripts_map.pop(filename)

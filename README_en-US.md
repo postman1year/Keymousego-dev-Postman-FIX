@@ -57,17 +57,16 @@ This program is written in `Python` and packed as executable file. You can downl
 
 ```
 1. Install Python 3
+
 2. Install requirement with pip3
 - (Windows) pip install -r requirements-windows.txt
-- (Linux/MacOS) pip3 install -r requirements-universal.txt
+
 3. Install pyinstaller
 -  pip install pyinstaller
+
 4. Bundle with pyinstaller
 - (Windows) pyinstaller -F -w --add-data "./assets;assets" KeymouseGo.py
-- (Linux X11) pyinstaller -F -w --add-data "./assets:assets" --hidden-import "pynput.keyboard._xorg" --hidden-import "pynput.mouse._xorg" KeymouseGo.py
-- (Linux Wayland) pyinstaller -F -w --add-data "./assets:assets"  --hidden-import "pynput.keyboard._uinput" --hidden-import "pynput.mouse._uinput" KeymouseGo.py
-- (MacOS) pyinstaller -F -w --add-data "./assets:assets" --hidden-import "pynput.keyboard._darwin" --hidden-import "pynput.mouse._darwin" KeymouseGo.py
-```
+
 
 The executable program would appear at folder `your_poject_location/dist`.
 
@@ -102,7 +101,7 @@ Run specific script for 3 times
 
 1. The program will endlessly run the script if run times is set to `0`
 
-2. The default launch hotkey is `F6`, which functions the same as the launch button. The default stop hotkey is `F9`, which will terminate the running script
+2. The default launch hotkey is `F12`, which functions the same as the launch button. The default stop hotkey is `F9`, which will terminate the running script
 
 3. Only mouse click operation and keyboard operation will be recorded. Mouse trail won't be recorded.
 
@@ -133,22 +132,22 @@ The script is saved in `json5` format, in which each line represents an event
 {
   scripts: [
     // Press mouse right button at the relative coordinates `(0.05208, 0.1852)`(i.e. absolute coordinates `(100,200)`) after 3000ms
-    {type: "event", event_type: "EM", delay: 3000, action_type: "mouse right down", action: ["0.05208%", "0.1852%"]},
+    {type: "event", event_type: "EM", delay: 3000, message: "mouse right down", action: ["0.05208%", "0.1852%"]},
     // Release mouse right button at the coordinates after 50ms
     // The mouse event will execute on the position that the cursor is currently in when the coordinate is set to [-1, -1]
-    {type: "event", event_type: "EM", delay: 50, action_type: "mouse right up", action: [-1, -1]},
+    {type: "event", event_type: "EM", delay: 50, message: "mouse right up", action: [-1, -1]},
     // Press key 'f' after 1000ms
-    {type: "event", event_type: "EK", delay: 1000, action_type: "key down", action: [70, 'F', 0]},
+    {type: "event", event_type: "EK", delay: 1000, message: "key down", action: [70, 'F', 0]},
     // Release key 'f' after 50ms
-    {type: "event", event_type: "EK", delay: 50, action_type: "key up", action: [70, 'F', 0]},
+    {type: "event", event_type: "EK", delay: 50, message: "key up", action: [70, 'F', 0]},
     // Press mouse left button at the relative coordinates `(0.2604, 0.4630)`(i.e. absolute coordinates `(500,500)`) after 100ms
-    {type: "event", event_type: "EM", delay: 100, action_type: "mouse left down", action: ["0.2604%", "0.4630%"]},
+    {type: "event", event_type: "EM", delay: 100, message: "mouse left down", action: ["0.2604%", "0.4630%"]},
     // Move mouse to the relative coordinates `(0.2604, 0.4630)`(i.e. absolute coordinates `(500,500)`) after 100ms
-    {type: "event", event_type: "EM", delay: 100, action_type: "mouse move", action: ["0.2604%", "0.5556%"]},
+    {type: "event", event_type: "EM", delay: 100, message: "mouse move", action: ["0.2604%", "0.5556%"]},
     // Release mouse left button at the relative coordinates `(0.3125, 0.5556)`(i.e. absolute coordinates `(600,600)`) after 100ms
-    {type: "event", event_type: "EM", delay: 100, action_type: "mouse left up", action: ["0.3125%", "0.5556%"]},
+    {type: "event", event_type: "EM", delay: 100, message: "mouse left up", action: ["0.3125%", "0.5556%"]},
     // Input 'Hello world' at current coordinate after 100ms
-    {type: "event", event_type: "EX", delay: 100, action_type: "input", action: "你好 world"}
+    {type: "event", event_type: "EX", delay: 100, message: "input", action: "你好 world"}
   ]
 }
 ```
@@ -177,7 +176,7 @@ My Email: taojy123@163.com
 
 If you are a developer and interested in this project, you can check the progress in branch [**dev**](https://github.com/taojy123/KeymouseGo/tree/dev). and you are welcomed to participating by opening pull request to branch [**dev**](https://github.com/taojy123/KeymouseGo/tree/dev).
 
-注：如果您需要修改应用界面，请修改UIView.ui文件并通过pyuic生成UIVIew.py,控件的初始化等操作请添加到UIFunc.py内。
+註：如果您需要修改應用界面，請修改UIView.ui檔案並通過pyuic產生UIVIew.py,控制元件的初始化等操作請新增到UIFunc.py內。
 Note: If you want to modify the application UI, please modify `UIView.ui` and generate `UIView.py` via `pyuic`. Then add the widget initialization operation in `UIFunc.py`.
 
 Thanks to free develop tool provided by JetBrains

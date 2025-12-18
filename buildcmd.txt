@@ -1,1 +1,16 @@
- pyinstaller -Fw --add-data './assets;assets' KeymouseGo.py
+### 原始碼打包可執行檔案
+
+```
+1. 安裝 Python3.10.11 (python-3.10.11-amd64.exe)
+
+2. pip安裝依賴
+- (Windows)            pip install -r requirements-windows.txt
+
+3. pip安裝pyinstaller
+- (Windows)            pip install pyinstaller
+
+4. pyinstaller打包
+- (Windows)            pyinstaller -F -w --add-data "./assets;assets" KeymouseGo.py
+
+
+打包完成後，可執行exe檔案在專案路徑的`dist`資料夾內。
