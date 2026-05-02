@@ -3,7 +3,7 @@ from typing import Dict, Any
 
 
 class Event(metaclass=ABCMeta):
-    # 传入字典进行初始化
+    # 傳入字典進行初始化
     def __init__(self, content: Dict[str, Any]):
         """Default param: delay, event_type, message, action"""
         for key in ['delay', 'event_type', 'action_type', 'action']:
@@ -17,7 +17,7 @@ class Event(metaclass=ABCMeta):
         else:
             return str(self.__dict__)
 
-    # 延时
+    # 延時
     def sleep(self, thd):
         thd.sleep(self.delay)
 

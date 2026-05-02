@@ -58,7 +58,7 @@
     <name>UIView</name>
     <message>
         <location filename="UIView.ui" line="14"/>
-        <source>KeymomuseGo v5.1</source>
+        <source>KeymomuseGo v5.2.1</source>
         <translation></translation>
     </message>
     <message>
@@ -68,19 +68,19 @@
         <translation>热键</translation>
     </message>
     <message>
-        <location filename="UIView.ui" line="69"/>
-        <source>Terminate</source>
-        <translatorcomment>终止录制</translatorcomment>
-        <translation>终止录制/执行</translation>
-    </message>
-    <message>
-        <location filename="UIView.ui" line="76"/>
+        <location filename="UIView.ui" line="49"/>
         <source>Language</source>
         <translatorcomment>语言</translatorcomment>
         <translation>语言</translation>
     </message>
     <message>
-        <location filename="UIView.ui" line="106"/>
+        <location filename="UIView.ui" line="56"/>
+        <source>Terminate</source>
+        <translatorcomment>终止录制</translatorcomment>
+        <translation>终止录制/执行</translation>
+    </message>
+    <message>
+        <location filename="UIView.ui" line="80"/>
         <source>Record/Pause</source>
         <translatorcomment>开始/暂停录制</translatorcomment>
         <translation>开始/暂停录制</translation>
@@ -92,48 +92,55 @@
         <translation>扩展插件</translation>
     </message>
     <message>
-        <location filename="UIView.ui" line="130"/>
+        <location filename="UIView.ui" line="73"/>
         <source>Launch/Pause</source>
         <translatorcomment>开始/暂停执行</translatorcomment>
         <translation>开始/暂停执行</translation>
     </message>
     <message>
-        <location filename="UIView.ui" line="158"/>
+        <location filename="UIView.ui" line="129"/>
         <source>Record</source>
         <translatorcomment>开始录制</translatorcomment>
         <translation>开始录制</translation>
     </message>
     <message>
-        <location filename="UIView.ui" line="171"/>
+        <location filename="UIView.ui" line="142"/>
         <source>Launch</source>
         <translatorcomment>启动</translatorcomment>
         <translation>启动</translation>
     </message>
     <message>
-        <location filename="UIView.ui" line="187"/>
+        <location filename="UIView.ui" line="158"/>
         <source>Pause Record</source>
         <translatorcomment>暂停录制</translatorcomment>
         <translation>暂停录制</translation>
     </message>
     <message>
-        <location filename="UIView.ui" line="206"/>
+        <location filename="UIView.ui" line="179"/>
         <source>Ready...</source>
-        <translation></translation>
+	<translatorcomment>准备中...</translatorcomment>
+        <translation>准备中...</translation>
     </message>
     <message>
-        <location filename="UIView.ui" line="241"/>
+        <location filename="UIView.ui" line="189"/>
+        <source>Cursor Position:</source>
+	<translatorcomment>光标位置</translatorcomment>
+        <translation>光标位置</translation>
+    </message>	
+    <message>
+        <location filename="UIView.ui" line="229"/>
         <source>Volume</source>
         <translatorcomment>音量</translatorcomment>
         <translation>音量</translation>
     </message>
     <message>
-        <location filename="UIView.ui" line="264"/>
+        <location filename="UIView.ui" line="252"/>
         <source>Config</source>
         <translatorcomment>配置</translatorcomment>
         <translation>配置</translation>
     </message>
     <message>
-        <location filename="UIView.ui" line="292"/>
+        <location filename="UIView.ui" line="319"/>
         <source>Mouse precision</source>
         <translatorcomment>鼠标精度</translatorcomment>
         <translation>鼠标精度</translation>
@@ -145,22 +152,46 @@
         <translation>执行速度(%)</translation>
     </message>
     <message>
-        <location filename="UIView.ui" line="306"/>
+        <location filename="UIView.ui" line="333"/>
         <source>Run times</source>
         <translatorcomment>执行次数</translatorcomment>
         <translation>执行次数</translation>
     </message>
     <message>
-        <location filename="UIView.ui" line="313"/>
+        <location filename="UIView.ui" line="326"/>
         <source>Theme</source>
         <translatorcomment>主题</translatorcomment>
         <translation>主题</translation>
     </message>
     <message>
-        <location filename="UIView.ui" line="320"/>
+        <location filename="UIView.ui" line="366"/>
         <source>Script</source>
         <translatorcomment>脚本</translatorcomment>
         <translation>脚本</translation>
+    </message>
+    <message>
+        <location filename="UIView.ui" line="373"/>
+        <source>Interval</source>
+        <translatorcomment>间隔</translatorcomment>
+        <translation>间隔</translation>
+    </message>
+    <message>
+        <location filename="UIView.ui" line="380"/>
+        <source>start_time</source>
+        <translatorcomment>定时开始时间</translatorcomment>
+        <translation>定时开始时间</translation>
+    </message>
+    <message>
+        <location filename="UIView.ui" line="387"/>
+        <source>stop_time</source>
+        <translatorcomment>定时停止时间</translatorcomment>
+        <translation>定时停止时间</translation>
+    </message>
+    <message>
+        <location filename="UIView.ui" line="394"/>
+        <source>no_sch</source>
+        <translatorcomment>不定时</translatorcomment>
+        <translation>不定时</translation>
     </message>
     <message>
         <location filename="UIView.ui" line="402"/>

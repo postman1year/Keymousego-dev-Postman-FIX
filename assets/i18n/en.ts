@@ -58,7 +58,7 @@
     <name>UIView</name>
     <message>
         <location filename="UIView.ui" line="14"/>
-        <source>KeymomuseGo v5.1</source>
+        <source>KeymomuseGo v5.2.1</source>
         <translation></translation>
     </message>
     <message>
@@ -68,19 +68,19 @@
         <translation>Hotkeys</translation>
     </message>
     <message>
-        <location filename="UIView.ui" line="69"/>
-        <source>Terminate</source>
-        <translatorcomment>Terminate</translatorcomment>
-        <translation>Terminate</translation>
-    </message>
-    <message>
-        <location filename="UIView.ui" line="76"/>
+        <location filename="UIView.ui" line="49"/>
         <source>Language</source>
         <translatorcomment>Language</translatorcomment>
         <translation>Language</translation>
     </message>
     <message>
-        <location filename="UIView.ui" line="106"/>
+        <location filename="UIView.ui" line="56"/>
+        <source>Terminate</source>
+        <translatorcomment>Terminate</translatorcomment>
+        <translation>Terminate</translation>
+    </message>
+    <message>
+        <location filename="UIView.ui" line="80"/>
         <source>Record/Pause</source>
         <translatorcomment>Record/Pause</translatorcomment>
         <translation>Record/Pause</translation>
@@ -92,48 +92,55 @@
         <translation>Extension</translation>
     </message>
     <message>
-        <location filename="UIView.ui" line="130"/>
+        <location filename="UIView.ui" line="73"/>
         <source>Launch/Pause</source>
         <translatorcomment>Launch/Pause</translatorcomment>
         <translation>Launch/Pause</translation>
     </message>
     <message>
-        <location filename="UIView.ui" line="158"/>
+        <location filename="UIView.ui" line="129"/>
         <source>Record</source>
         <translatorcomment>Record</translatorcomment>
         <translation>Record</translation>
     </message>
     <message>
-        <location filename="UIView.ui" line="171"/>
+        <location filename="UIView.ui" line="142"/>
         <source>Launch</source>
         <translatorcomment>Launch/Pause</translatorcomment>
         <translation>Launch/Pause</translation>
     </message>
     <message>
-        <location filename="UIView.ui" line="187"/>
+        <location filename="UIView.ui" line="158"/>
         <source>Pause Record</source>
         <translatorcomment>Record/Pause</translatorcomment>
         <translation>Record/Pause</translation>
     </message>
     <message>
-        <location filename="UIView.ui" line="206"/>
+        <location filename="UIView.ui" line="179"/>
         <source>Ready...</source>
-        <translation></translation>
+	<translatorcomment>Ready...</translatorcomment>
+        <translation>Ready...</translation>
     </message>
     <message>
-        <location filename="UIView.ui" line="241"/>
+        <location filename="UIView.ui" line="189"/>
+        <source>Cursor Position:</source>
+	<translatorcomment>Cursor Position:</translatorcomment>
+        <translation>Cursor Position:</translation>
+    </message>	
+    <message>
+        <location filename="UIView.ui" line="229"/>
         <source>Volume</source>
         <translatorcomment>Volume</translatorcomment>
         <translation>Volume</translation>
     </message>
     <message>
-        <location filename="UIView.ui" line="264"/>
+        <location filename="UIView.ui" line="252"/>
         <source>Config</source>
         <translatorcomment>Config</translatorcomment>
         <translation>Config</translation>
     </message>
     <message>
-        <location filename="UIView.ui" line="292"/>
+        <location filename="UIView.ui" line="319"/>
         <source>Mouse precision</source>
         <translatorcomment>Mouse precision</translatorcomment>
         <translation>Mouse precision</translation>
@@ -145,23 +152,47 @@
         <translation>Running speed(%)</translation>
     </message>
     <message>
-        <location filename="UIView.ui" line="306"/>
+        <location filename="UIView.ui" line="333"/>
         <source>Run times</source>
         <translatorcomment>Run times</translatorcomment>
         <translation>Run times</translation>
     </message>
     <message>
-        <location filename="UIView.ui" line="313"/>
+        <location filename="UIView.ui" line="326"/>
         <source>Theme</source>
         <translatorcomment>Theme</translatorcomment>
         <translation>Theme</translation>
     </message>
     <message>
-        <location filename="UIView.ui" line="320"/>
+        <location filename="UIView.ui" line="366"/>
         <source>Script</source>
         <translatorcomment>Script</translatorcomment>
         <translation>Script</translation>
     </message>
+    <message>
+        <location filename="UIView.ui" line="373"/>
+        <source>Interval</source>
+        <translatorcomment>Interval</translatorcomment>
+        <translation>Interval</translation>
+    </message>
+    <message>
+        <location filename="UIView.ui" line="380"/>
+        <source>start_time</source>
+        <translatorcomment>Sch start time</translatorcomment>
+        <translation>Sch start time</translation>
+    </message>
+    <message>
+        <location filename="UIView.ui" line="387"/>
+        <source>stop_time</source>
+        <translatorcomment>Sch stop time</translatorcomment>
+        <translation>Sch stop time</translation>
+    </message>
+    <message>
+        <location filename="UIView.ui" line="394"/>
+        <source>no_sch</source>
+        <translatorcomment>No Sch</translatorcomment>
+        <translation>No Sch</translation>
+    </message>	
     <message>
         <location filename="UIView.ui" line="402"/>
         <source>...</source>

@@ -26,7 +26,7 @@ class Ui_UIView(object):
     def setupUi(self, UIView):
         if not UIView.objectName():
             UIView.setObjectName(u"UIView")
-        UIView.resize(651, 477)
+        UIView.resize(671, 477)
         icon = QIcon()
         icon.addFile(u":/pic/Mondrian.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         UIView.setWindowIcon(icon)
@@ -34,19 +34,19 @@ class Ui_UIView(object):
         self.centralwidget.setObjectName(u"centralwidget")
         self.groupBox = QGroupBox(self.centralwidget)
         self.groupBox.setObjectName(u"groupBox")
-        self.groupBox.setGeometry(QRect(370, 10, 271, 151))
+        self.groupBox.setGeometry(QRect(370, 10, 294, 181))
         self.gridLayout_3 = QGridLayout(self.groupBox)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
         self.gridLayout_3.setContentsMargins(0, 0, 0, 0)
         self.label_language = QLabel(self.groupBox)
         self.label_language.setObjectName(u"label_language")
 
-        self.gridLayout_3.addWidget(self.label_language, 3, 0, 1, 1)
+        self.gridLayout_3.addWidget(self.label_language, 3, 0, 1, 2)
 
         self.label_stop = QLabel(self.groupBox)
         self.label_stop.setObjectName(u"label_stop")
 
-        self.gridLayout_3.addWidget(self.label_stop, 2, 0, 1, 1)
+        self.gridLayout_3.addWidget(self.label_stop, 2, 0, 1, 2)
 
         self.choice_language = QComboBox(self.groupBox)
         self.choice_language.setObjectName(u"choice_language")
@@ -56,32 +56,32 @@ class Ui_UIView(object):
         sizePolicy.setHeightForWidth(self.choice_language.sizePolicy().hasHeightForWidth())
         self.choice_language.setSizePolicy(sizePolicy)
 
-        self.gridLayout_3.addWidget(self.choice_language, 3, 1, 1, 1)
+        self.gridLayout_3.addWidget(self.choice_language, 3, 1, 1, 2)
 
         self.label_start_key = QLabel(self.groupBox)
         self.label_start_key.setObjectName(u"label_start_key")
 
-        self.gridLayout_3.addWidget(self.label_start_key, 0, 0, 1, 1)
+        self.gridLayout_3.addWidget(self.label_start_key, 0, 0, 1, 2)
 
         self.label_record = QLabel(self.groupBox)
         self.label_record.setObjectName(u"label_record")
 
-        self.gridLayout_3.addWidget(self.label_record, 1, 0, 1, 1)
+        self.gridLayout_3.addWidget(self.label_record, 1, 0, 1, 2)
 
         self.hotkey_start = QPushButton(self.groupBox)
         self.hotkey_start.setObjectName(u"hotkey_start")
 
-        self.gridLayout_3.addWidget(self.hotkey_start, 0, 1, 1, 1)
+        self.gridLayout_3.addWidget(self.hotkey_start, 0, 1, 1, 2)
 
         self.hotkey_record = QPushButton(self.groupBox)
         self.hotkey_record.setObjectName(u"hotkey_record")
 
-        self.gridLayout_3.addWidget(self.hotkey_record, 1, 1, 1, 1)
+        self.gridLayout_3.addWidget(self.hotkey_record, 1, 1, 1, 2)
 
         self.hotkey_stop = QPushButton(self.groupBox)
         self.hotkey_stop.setObjectName(u"hotkey_stop")
 
-        self.gridLayout_3.addWidget(self.hotkey_stop, 2, 1, 1, 1)
+        self.gridLayout_3.addWidget(self.hotkey_stop, 2, 1, 1, 2)
 
         self.horizontalLayoutWidget = QWidget(self.centralwidget)
         self.horizontalLayoutWidget.setObjectName(u"horizontalLayoutWidget")
@@ -114,7 +114,7 @@ class Ui_UIView(object):
 
         self.verticalLayoutWidget = QWidget(self.centralwidget)
         self.verticalLayoutWidget.setObjectName(u"verticalLayoutWidget")
-        self.verticalLayoutWidget.setGeometry(QRect(10, 210, 631, 220))
+        self.verticalLayoutWidget.setGeometry(QRect(10, 220, 652, 230))
         self.verticalLayout = QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -146,20 +146,10 @@ class Ui_UIView(object):
 
         self.formLayoutWidget_3 = QWidget(self.centralwidget)
         self.formLayoutWidget_3.setObjectName(u"formLayoutWidget_3")
-        self.formLayoutWidget_3.setGeometry(QRect(420, 180, 221, 31))
+        self.formLayoutWidget_3.setGeometry(QRect(420, 200, 221, 31))
         self.formLayout_3 = QFormLayout(self.formLayoutWidget_3)
         self.formLayout_3.setObjectName(u"formLayout_3")
         self.formLayout_3.setContentsMargins(0, 0, 0, 0)
-        self.label_volume = QLabel(self.formLayoutWidget_3)
-        self.label_volume.setObjectName(u"label_volume")
-
-        self.formLayout_3.setWidget(0, QFormLayout.LabelRole, self.label_volume)
-
-        self.volumeSlider = QSlider(self.formLayoutWidget_3)
-        self.volumeSlider.setObjectName(u"volumeSlider")
-        self.volumeSlider.setOrientation(Qt.Horizontal)
-
-        self.formLayout_3.setWidget(0, QFormLayout.FieldRole, self.volumeSlider)
 
         self.groupBox_2 = QGroupBox(self.centralwidget)
         self.groupBox_2.setObjectName(u"groupBox_2")
@@ -251,15 +241,15 @@ class Ui_UIView(object):
         UIView.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(UIView)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 651, 21))
+        self.menubar.setGeometry(QRect(0, 0, 670, 21))
         UIView.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(UIView)
         self.statusbar.setObjectName(u"statusbar")
         UIView.setStatusBar(self.statusbar)
 
-        # 定时开始时间的小时和分钟选择
+        # 定時開始時間的小時和分鐘選擇
         self.label_start_time = QLabel(self.groupBox)
-        self.label_start_time.setText("定时开始时间:")
+        
         self.combo_start_hour = QComboBox(self.groupBox)
         self.combo_start_min = QComboBox(self.groupBox)
         for hour in range(24):
@@ -269,9 +259,9 @@ class Ui_UIView(object):
         self.combo_start_hour.setCurrentText("00")
         self.combo_start_min.setCurrentText("00")
 
-        # 定时停止时间的小时和分钟选择
+        # 定時停止時間的小時和分鐘選擇
         self.label_stop_time = QLabel(self.groupBox)
-        self.label_stop_time.setText("定时停止时间:")
+        
         self.combo_stop_hour = QComboBox(self.groupBox)
         self.combo_stop_min = QComboBox(self.groupBox)
         for hour in range(24):
@@ -281,18 +271,20 @@ class Ui_UIView(object):
         self.combo_stop_hour.setCurrentText("00")
         self.combo_stop_min.setCurrentText("00")
 
-        # 添加“不定时”复选框
-        self.checkbox_no_timing_start = QCheckBox("不定时", self.groupBox)
-        self.checkbox_no_timing_stop = QCheckBox("不定时", self.groupBox)
+        # 新增「不定時」選取方塊
+        self.label_no_sch = QLabel(self.groupBox)
+        self.label_no_sch_1 = QLabel(self.groupBox)
+        self.checkbox_no_timing_start = QCheckBox(self.label_no_sch.text(), self.groupBox)
+        self.checkbox_no_timing_stop = QCheckBox(self.label_no_sch_1.text(), self.groupBox)
 
-        # 开始时间布局
+        # 開始時間佈局
         hbox_start = QHBoxLayout()
         hbox_start.addWidget(self.combo_start_hour)
         hbox_start.addWidget(QLabel(":"))
         hbox_start.addWidget(self.combo_start_min)
         hbox_start.addWidget(self.checkbox_no_timing_start)
 
-        # 停止时间布局
+        # 停止時間佈局
         hbox_stop = QHBoxLayout()
         hbox_stop.addWidget(self.combo_stop_hour)
         hbox_stop.addWidget(QLabel(":"))
@@ -301,8 +293,10 @@ class Ui_UIView(object):
 
         self.gridLayout_3.addWidget(self.label_start_time, 4, 0)
         self.gridLayout_3.addLayout(hbox_start, 4, 1)
+        self.gridLayout_3.addWidget(self.label_no_sch, 4, 2)
         self.gridLayout_3.addWidget(self.label_stop_time, 5, 0)
         self.gridLayout_3.addLayout(hbox_stop, 5, 1)
+        self.gridLayout_3.addWidget(self.label_no_sch_1, 5, 2)
 
         self.retranslateUi(UIView)
 
@@ -324,7 +318,6 @@ class Ui_UIView(object):
         self.btpauserecord.setText(QCoreApplication.translate("UIView", u"Pause Record", None))
         self.tnumrd.setText(QCoreApplication.translate("UIView", u"Ready...", None))
         self.label_cursor_pos.setText(QCoreApplication.translate("UIView", u"Cursor Position:", None))
-        self.label_volume.setText(QCoreApplication.translate("UIView", u"Volume", None))
         self.groupBox_2.setTitle(QCoreApplication.translate("UIView", u"Config", None))
         self.bt_open_script_files.setText(QCoreApplication.translate("UIView", u"...", None))
         self.label_execute_interval.setText(QCoreApplication.translate("UIView", u"Mouse precision", None))
@@ -332,5 +325,9 @@ class Ui_UIView(object):
         self.label_run_times.setText(QCoreApplication.translate("UIView", u"Run times", None))
         self.label_script.setText(QCoreApplication.translate("UIView", u"Script", None))
         self.label_interval.setText(QCoreApplication.translate("UIView", u"Interval", None))
+        self.label_start_time.setText(QCoreApplication.translate("UIView", u"start_time", None))
+        self.label_stop_time.setText(QCoreApplication.translate("UIView", u"stop_time", None))
+        self.label_no_sch.setText(QCoreApplication.translate("UIView", u"no_sch", None))
+        self.label_no_sch_1.setText(QCoreApplication.translate("UIView", u"no_sch", None))
     # retranslateUi
 

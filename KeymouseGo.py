@@ -49,11 +49,11 @@ def single_run(script_path, run_times):
     flag = StopFlag(False)
     thread = RunScriptCMDClass(script_path, run_times, flag)
 
-    stop_name = 'f9'
+    stop_name = 'F9'
 
     @Slot(ScriptEvent)
     def on_keyboard_event(event):
-        key_name = event.action[1].lower()
+        key_name = event.action[1].upper()
         if key_name == stop_name:
             logger.debug('break exit!')
             flag.value = True

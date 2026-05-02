@@ -31,11 +31,11 @@ class ScriptParser(Parser):
         except Exception as e:
             # logger.warning(e)
             try:
-                with open(script_path, 'r', encoding='gbk') as f:
+                with open(script_path, 'r', encoding='big5hkscs') as f:
                     content: Dict = json5.load(f)
             except Exception as e:
                 logger.error(e)
-                logger.error('无法解析脚本，请检查是否存在语法问题')
+                logger.error('無法解析指令碼，請檢查是否存在語法問題')
                 return None
 
         logger.debug('Script content')
@@ -44,7 +44,7 @@ class ScriptParser(Parser):
         objects: List[Dict[str, Any]] = content['scripts']
 
         label_maps: Dict[str, JsonObject] = {}
-        pending_dict: Dict[JsonObject, str] = {}  # 如果对象要跳转到未收入的label，则暂存该对象等待遍历完成后(labelmaps完全更新)再添加内容
+        pending_dict: Dict[JsonObject, str] = {}  # 如果對像要跳轉到未收入的label，則暫存該對像等待遍歷完成後(labelmaps完全更新)再新增內容
 
         try:
             head_object = ScriptParser.link_objects(objects, None, label_maps, pending_dict)
@@ -58,20 +58,20 @@ class ScriptParser(Parser):
             return head_object
         except Exception as e:
             logger.error(e)
-            logger.error('无法解析脚本，请检查是否存在语法问题')
+            logger.error('無法解析指令碼，請檢查是否存在語法問題')
             return None
 
     @staticmethod
     @logger.catch
     def link_objects(objects: List[Dict[str, Any]], target_object: JsonObject,
                      label_maps: Dict[str, JsonObject], pending_dict: Dict[JsonObject, str]) -> JsonObject:
-        # 倒序遍历脚本，建立流程图
+        # 倒序遍歷指令碼，建立流程圖
         objects.reverse()
         current_object: JsonObject = None
         for content in objects:
             content: Dict
             current_object = JsonObject(content)
-            # 添加label映射
+            # 新增label對映
             if content.get('label', None) is not None:
                 if label_maps.get(content['label'], None) is not None:
                     logger.warning(f'Overwrite label {content["label"]} to object {content}')
@@ -79,14 +79,14 @@ class ScriptParser(Parser):
 
             object_type = content.get('type', None)
             if object_type in ['event', 'subroutine', 'custom']:
-                # 直接连接
+                # 直接連線
                 current_object.next_object = target_object
             elif object_type == 'sequence':
                 current_object.next_object = target_object
                 current_object.content['events'] = \
                     ScriptParser.link_objects(content['events'], None, label_maps, pending_dict)
             elif object_type == 'if':
-                # 涉及两个子序列的连接
+                # 涉及兩個子序列的連線
                 current_object.next_object = \
                     ScriptParser.link_objects(content['do'], target_object, label_maps, pending_dict)
                 current_object.next_object_if_false = \
@@ -114,16 +114,16 @@ class LegacyParser(Parser):
         except Exception as e:
             # logger.warning(e)
             try:
-                with open(script_path, 'r', encoding='gbk') as f:
+                with open(script_path, 'r', encoding='big5hkscs') as f:
                     content = json5.load(f)
             except Exception as e:
                 logger.error(e)
-                logger.error('无法解析脚本，请检查是否存在语法问题')
+                logger.error('無法解析指令碼，請檢查是否存在語法問題')
                 return None
 
         logger.debug('Script content')
         logger.debug(content)
-        # 旧版脚本无流程控制，只需倒序遍历即可确定图
+        # 舊版指令碼無流程控制，只需倒序遍歷即可確定圖
         content.reverse()
         target_object = None
         current_object = None
